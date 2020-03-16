@@ -1,0 +1,36 @@
+<div class="form-container">
+    <h1>Formulario Reactivo con FormGroup y FormControl!</h1>
+    <form novalidate [formGroup]="contactForm" #form (ngSubmit)="onSaveForm()">
+        <input type="text" formControlName="name" placeholder="Tu nombre">
+        <div class="alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+            <div class="container-error-message" *ngIf="name.errors.required">
+                El nombre es requerido
+            </div>
+            <div class="container-error-message" *ngIf="name.errors.minlength">
+                El nombre no puede tener menos de 5 caracteres
+            </div>
+        </div>
+        <input type="text" formControlName="email" placeholder="Tu email">
+        <div class="alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div class="container-error-message" *ngIf="email.errors.required">
+                El email es requerido
+            </div>
+            <div class="container-error-message" *ngIf="email.errors.minlength">
+                El email  no puede tener menos de 5 caracteres
+            </div>
+            <div class="container-error-message" *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.pattern">
+                El email tiene que ser un email valido
+            </div>
+        </div>
+        <textarea formControlName="message" placeholder="Cual es tu mensaje"></textarea>
+        <div class="alert-danger" *ngIf="message.invalid && (message.dirty || message.touched)">
+            <div class="container-error-message" *ngIf="message.errors.required">
+                El mensaje es requerido
+            </div>
+            <div class="container-error-message" *ngIf="message.errors.minlength">
+                El mensaje no puede tener menos de 10 caracteres
+            </div>
+        </div>
+        <button type="submit" class="btn-send" [disabled]="!contactForm.valid">Enviar</button>
+    </form>
+</div>
